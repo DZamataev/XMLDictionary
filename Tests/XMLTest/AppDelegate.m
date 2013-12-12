@@ -14,11 +14,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSURL *URL = [[NSURL alloc] initWithString:@"http://www.ibiblio.org/xml/examples/shakespeare/all_well.xml"];
+//    NSURL *URL = [[NSURL alloc] initWithString:@"http://www.ibiblio.org/xml/examples/shakespeare/all_well.xml"];
+    NSURL *URL = [[NSURL alloc] initWithString:@"http://d.pr/f/eRWD+"];
     NSString *string = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:NULL];
-    NSLog(@"string: %@", string);
+    NSLog(@"string:\n%@", string);
+    
+    [XMLDictionaryParser sharedInstance].includeRootNodeToDictionary = YES;
+    [XMLDictionaryParser sharedInstance].collapseTextNodes = NO;
+    [XMLDictionaryParser sharedInstance].stripEmptyNodes = NO;
+    [XMLDictionaryParser sharedInstance].attributesMode = XMLDictionaryAttributesModePrefixed;
+    [XMLDictionaryParser sharedInstance].nodeNameMode = XMLDictionaryNodeNameModeNever;
+    
     NSDictionary *xmlDoc = [NSDictionary dictionaryWithXMLString:string];
-    NSLog(@"dictionary: %@", xmlDoc);
+    NSLog(@"dictionary:\n%@", xmlDoc);
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
